@@ -21,11 +21,9 @@ def getListOfChains(two_chains):
             branchList = []
         if branchList == []:
             full_chains.append(full_chain)
-        elif len(branchList) == 1:
-            getFullChain(receivingNodes[branchList[0]], [b for b in full_chain])
         else:
             for branch in branchList:
-                getFullChain(receivingNodes[branch], [a for a in full_chain])
+                getFullChain(receivingNodes[branch], [n for n in full_chain])
 
     #populate senderDict with values of indices
     for index in range(0, len(sendingNodes)):
@@ -36,7 +34,6 @@ def getListOfChains(two_chains):
     
     #obtain the list of 'starting nodes' that will kick off each full chain
     #this is the majority of the runtime, could probably be optimized further
-    print("Listing starting nodes...\n")
     for key in senderDict:
         if key in receivingNodes:
             continue
@@ -46,7 +43,6 @@ def getListOfChains(two_chains):
             startingNodes.append(key)
 
     #sub-function call for each starting node
-    print("Writing chains...\n")
     for startingNode in startingNodes:
         getFullChain(startingNode, [])
 
@@ -55,7 +51,6 @@ def getListOfChains(two_chains):
 
 #function call
 x = getListOfChains(test_list)
-print("{} full chains returned\n".format(len(x)))
 
 #pass into test algorithm
 test_chain_algorithm(x)
