@@ -1,0 +1,53 @@
+------------------PROBLEM------------------
+We have a collection of nodes and directed connections between them.
+This information is contained in a list whose elements are themselves lists of length two.
+Each of these lists contains two of the nodes, with the first being the parent of the second.
+
+For instance, we could have the following "2-chains":
+a -> f
+a -> z
+b -> d
+c -> e
+c -> s
+d -> q
+e -> a
+f -> r
+
+which are represented by the following list:
+two_chains = [
+    ["a", "f"], ["a", "z"], ["b", "d"], ["c", "e"],
+    ["c", "s"], ["d", "q"], ["e", "a"], ["f", "r"]
+]
+
+The goal is to gather all 2-chains into all possible full chains.
+For instance, the above list of 2-chains would reduce to:
+c -> e -> a -> z
+c -> e -> a -> f -> r
+c -> s
+b -> d -> q
+
+which is represented as:
+full_chains = [
+    ["c", "e", "a", "z"],
+    ["c", "e", "a", "f", "r"],
+    ["c", "s"],
+    ["b", "d", "q"]
+]
+
+Chains must be full. For instance, c -> e -> a and d -> q
+would not be valid because they can each be "extended".
+
+Write a function that takes an argument of 2-chains as described above (list of 2-length lists)
+and outputs the corresponding list of full chains (list of lists).
+
+Order of the constituent lists within the broader list is not important.
+However, the order of nodes within each list is important,
+as this ordering represents the direction of connections between nodes.
+
+You can assume two_chains represents an acyclic graph; you do not need to worry
+about a chain "turning back" onto itself.
+
+------------------TESTING------------------
+Load the pickled file test_case.p - this file contains the two_chains representation of the test case.
+Run this list through your function, then run the output through test_chain_algorithm(),
+with the solution_path argument set to the location of test_solution.p.
